@@ -1,11 +1,11 @@
 /**
  * @name discordExperiments_v2
  * @description Enables the experiments tab in discord's settings.
- * @author Aye
+ * @author FireCloud
  * @version 2.0
  * @website https://betterdiscord.app/plugin/Discord%20Experiments
- * @source https://github.com/Inve1951/BetterDiscordStuff/blob/master/plugins/discordexperiments.plugin.js
- * @updateUrl https://betterdiscord.app/gh-redirect?id=206
+ * @source https://github.com/Fired-Cloud/BetterDiscord-Plugins/blob/main/experimentiki.plugin.js
+ * @updateUrl https://raw.githubusercontent.com/Fired-Cloud/BetterDiscord-Plugins/main/experimentiki.plugin.js
  */
 
  const settingsStore = BdApi.findModule(m => typeof m?.default?.isDeveloper !== "undefined");
