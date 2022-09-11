@@ -1,0 +1,2 @@
+# BetterDiscord-Plugins
+idk
