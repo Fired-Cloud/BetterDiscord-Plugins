@@ -1,31 +1,50 @@
 /**
- * @name discordExperiments_v2
- * @description Enables the experiments tab in discord's settings.
- * @author FireCloud
- * @version 2.0
- * @website https://betterdiscord.app/plugin/Discord%20Experiments
- * @source https://github.com/Fired-Cloud/BetterDiscord-Plugins/blob/main/experimentiki.plugin.js
- * @updateUrl https://raw.githubusercontent.com/Fired-Cloud/BetterDiscord-Plugins/main/experimentiki.plugin.js
+ * @name Discord Experiments
+ * @author Fired-Cloud
+ * @version 2.0.0
+ * @description Discord Experiments but fixed. Thanks Discord Devs.
  */
+let mod;
+let usermod;
+let nodes;
+let oldGetUser;
+class Science {
+    constructor() {
+    }
 
- const settingsStore = BdApi.findModule(m => typeof m?.default?.isDeveloper !== "undefined");
- const userStore = BdApi.findModule(m => m?.default?.getUsers);
- 
- module.exports = class {
-     getName(){ return "Discord Experiments"; }
- 
-     start() {
-         const nodes = Object.values(settingsStore.default._dispatcher._actionHandlers._dependencyGraph.nodes);
-         try {
-             nodes.find(x => x.name == "ExperimentStore").actionHandler["CONNECTION_OPEN"]({user: {flags: 1}, type: "CONNECTION_OPEN"})
-         } catch (e) {} // this will always intentionally throw
-         const oldGetUser = userStore.default.__proto__.getCurrentUser;
-         userStore.default.__proto__.getCurrentUser = () => ({hasFlag: () => true})
-         nodes.find(x => x.name == "DeveloperExperimentStore").actionHandler["CONNECTION_OPEN"]()
-         userStore.default.__proto__.getCurrentUser = oldGetUser
-     }
- 
-     stop(){
-         Object.values(settingsStore.default._dispatcher._dependencyGraph.nodes).find(x => x.name == "ExperimentStore").actionHandler["CONNECTION_OPEN"]({user: {flags: 0}, type: "CONNECTION_OPEN"})
-     }
- };
+    start() {
+        let wpRequire;
+        window.webpackChunkdiscord_app.push([[Math.random()], {}, (req) => {
+            wpRequire = req;
+        }]);
+        let mod;
+        mod = Object.values(wpRequire.c).find(x => typeof x?.exports?.Z?.isDeveloper !== "undefined");
+        let usermod;
+        usermod = Object.values(wpRequire.c).find(x => x?.exports?.default?.getUsers)
+        let nodes;
+        nodes = Object.values(mod.exports.Z._dispatcher._actionHandlers._dependencyGraph.nodes)
+        try {
+            nodes.find(x => x.name == "ExperimentStore").actionHandler["OVERLAY_INITIALIZE"]({ user: { flags: 1 } })
+        } catch (e) {
+        }
+        let oldGetUser;
+        oldGetUser = usermod.exports.default.__proto__.getCurrentUser;
+        usermod.exports.default.__proto__.getCurrentUser = () => ({ isStaff: () => true })
+        nodes.find(x => x.name == "DeveloperExperimentStore").actionHandler["CONNECTION_OPEN"]()
+        usermod.exports.default.__proto__.getCurrentUser = oldGetUser
+    }
+
+    stop() {
+        // Perform necessary cleanup or tear down of resources when the plugin is stopped
+    }
+
+    onLoad() {
+        this.start();
+    }
+
+    onUnload() {
+        this.stop();
+    }
+}
+
+module.exports = Science;
